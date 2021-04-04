@@ -13,10 +13,13 @@ module.exports = {
         extensions: [
           '.js',
           '.jsx',
+          '.ts',
+          '.tsx',
         ],
       },
     },
   },
+  parser: '@typescript-eslint/parser',
   parserOptions: {
     ecmaFeatures: {
       jsx: true,
@@ -26,8 +29,20 @@ module.exports = {
   },
   plugins: [
     'react',
+    '@typescript-eslint',
   ],
   rules: {
+    'react/jsx-filename-extension': [1, { extensions: ['.js', '.jsx', '.ts', '.tsx'] }],
+    'import/extensions': [
+      'error',
+      'ignorePackages',
+      {
+        js: 'never',
+        jsx: 'never',
+        ts: 'never',
+        tsx: 'never',
+      },
+    ],
     'react/react-in-jsx-scope': 'off',
     'react/prop-types': 'off',
     'react/destructuring-assignment': 'off',
