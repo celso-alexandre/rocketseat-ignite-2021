@@ -1,6 +1,6 @@
 import '../styles/header.scss';
 
-export default function Header() {
+export function Header() {
   return (
     <header className="header">
       <div>

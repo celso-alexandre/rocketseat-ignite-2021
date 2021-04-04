@@ -10,7 +10,7 @@ interface Task {
   isComplete: boolean;
 }
 
-export default function TaskList() {
+export function TaskList() {
   const [tasks, setTasks] = useState<Task[]>([]);
   const [newTaskTitle, setNewTaskTitle] = useState('');
 

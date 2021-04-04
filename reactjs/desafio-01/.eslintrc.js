@@ -32,6 +32,8 @@ module.exports = {
     '@typescript-eslint',
   ],
   rules: {
+    'jsx-a11y/label-has-associated-control': 'off',
+    'import/prefer-default-export': 'off',
     'react/jsx-filename-extension': [1, { extensions: ['.js', '.jsx', '.ts', '.tsx'] }],
     'import/extensions': [
       'error',
