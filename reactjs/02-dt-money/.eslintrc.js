@@ -30,8 +30,14 @@ module.exports = {
   plugins: [
     'react',
     '@typescript-eslint',
+    'better-styled-components',
   ],
   rules: {
+    'better-styled-components/sort-declarations-alphabetically': 2,
+    'react/self-closing-comp': ['error', {
+      component: false,
+      html: false,
+    }],
     'jsx-props-no-spreading': 'off',
     'jsx-a11y/label-has-associated-control': 'off',
     'import/prefer-default-export': 'off',
