@@ -33,6 +33,7 @@ module.exports = {
     'better-styled-components',
   ],
   rules: {
+    'no-unused-vars': 'off',
     'better-styled-components/sort-declarations-alphabetically': 2,
     'react/self-closing-comp': ['error', {
       component: false,
