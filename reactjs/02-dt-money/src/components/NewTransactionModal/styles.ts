@@ -46,7 +46,7 @@ export const Container = styled.form`
   }
 `;
 
-export const TransactionTypeContainer = styled.form`
+export const TransactionTypeContainer = styled.div`
   display: grid;
   gap: 0.5rem;
   grid-template-columns: 1fr 1fr;
