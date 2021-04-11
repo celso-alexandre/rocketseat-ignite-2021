@@ -1,28 +1,9 @@
-import { useEffect, useState } from 'react';
-// import { format } from 'date-fns';
+import { useContext, useEffect, useState } from 'react';
+import { TransactionsContext } from '../../contexts/TransactionsContext';
 import { Container } from './styles';
-import { api } from '../../services/api';
-
-interface ITransaction {
-  id: number,
-  title: string,
-  amount: number,
-  type: string,
-  category: string,
-  createdAt: string,
-}
-
-interface IGetTransactionsResponse {
-  transactions: ITransaction[];
-}
 
 export function TransactionsTable() {
-  const [transactions, setTransactions] = useState([] as ITransaction[]);
-
-  useEffect(() => {
-    api.get<IGetTransactionsResponse>('transactions')
-      .then((response) => setTransactions(response.data.transactions));
-  }, []);
+  const { transactions } = useContext(TransactionsContext);
 
   return (
     <Container>
@@ -51,9 +32,10 @@ export function TransactionsTable() {
                 {/* {format(
                   new Date(transaction.createdAt), 'dd/MM/yyyy'
                 )} */}
-                {new Intl.DateTimeFormat('pt-BR').format(
+                {/* {new Intl.DateTimeFormat('pt-BR').format(
                   new Date(transaction.createdAt),
-                )}
+                )} */}
+                {transaction.createdAt}
               </td>
             </tr>
           ))}
