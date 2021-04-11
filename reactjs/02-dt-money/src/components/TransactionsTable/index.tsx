@@ -1,5 +1,5 @@
 import { useEffect, useState } from 'react';
-import { format } from 'date-fns';
+// import { format } from 'date-fns';
 import { Container } from './styles';
 import { api } from '../../services/api';
 
@@ -40,10 +40,20 @@ export function TransactionsTable() {
           {transactions?.map((transaction) => (
             <tr key={transaction.id}>
               <td className="title">{transaction.title}</td>
-              <td className={transaction.type}>{transaction.amount}</td>
+              <td className={transaction.type}>
+                {new Intl.NumberFormat('pt-BR', {
+                  style: 'currency',
+                  currency: 'BRL',
+                }).format(transaction.amount)}
+              </td>
               <td>{transaction.category}</td>
               <td>
-                {format(new Date(transaction.createdAt), 'dd/MM/yyyy')}
+                {/* {format(
+                  new Date(transaction.createdAt), 'dd/MM/yyyy'
+                )} */}
+                {new Intl.DateTimeFormat('pt-BR').format(
+                  new Date(transaction.createdAt),
+                )}
               </td>
             </tr>
           ))}
