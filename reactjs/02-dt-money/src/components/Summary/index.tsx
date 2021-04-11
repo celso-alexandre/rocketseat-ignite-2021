@@ -8,15 +8,18 @@ import { TransactionsContext } from '../../contexts/TransactionsContext';
 export function Summary() {
   const { transactions } = useContext(TransactionsContext);
 
-  const summaryValues = transactions.reduce((accumulatedSummary, transaction) => (
-    {
-      ...accumulatedSummary,
-      [transaction.type]: accumulatedSummary[transaction.type] + transaction.amount,
-      total: accumulatedSummary.total + (
-        transaction.amount * (transaction.type === 'outcome' ? -1 : 1)
-      ),
+  const summaryValues = transactions.reduce((accumulatedSummary, transaction) => {
+    const newAccumulatedSummary = accumulatedSummary;
+    if (transaction.type === 'income') {
+      newAccumulatedSummary.income += transaction.amount;
+      newAccumulatedSummary.total += transaction.amount;
+    } else {
+      newAccumulatedSummary.outcome += transaction.amount;
+      newAccumulatedSummary.total -= transaction.amount;
     }
-  ), {
+
+    return newAccumulatedSummary;
+  }, {
     income: 0,
     outcome: 0,
     total: 0,
