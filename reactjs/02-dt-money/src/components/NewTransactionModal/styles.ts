@@ -51,31 +51,36 @@ export const TransactionTypeContainer = styled.form`
   gap: 0.5rem;
   grid-template-columns: 1fr 1fr;
   margin: 1rem 0;
+`;
 
-  button {
-    align-items: center;
-    background: transparent;
-    border: 1px solid #d7d7d7;
-    border-radius: 0.25rem;
-    display: flex;
-    height: 4rem;
-    justify-content: center;
-    transition: border-color 0.2s;
+interface RadioBoxProps {
+  isActive: boolean;
+  activeColor: string;
+}
 
-    &:hover {
-      border-color: ${darken(0.1, '#d7d7d7')};
-    }
+export const RadioBox = styled.button<RadioBoxProps>`
+  align-items: center;
+  background: ${(props) => (props.isActive ? props.activeColor : 'transparent')};
+  border: 1px solid #d7d7d7;
+  border-radius: 0.25rem;
+  display: flex;
+  height: 4rem;
+  justify-content: center;
+  transition: border-color 0.2s;
 
-    img {
-      height: 20px;
-      width: 20px;
-    }
+  &:hover {
+    border-color: ${darken(0.1, '#d7d7d7')};
+  }
 
-    span {
-      color: var(--text-title);
-      display: inline-block;
-      font-size: 1rem;
-      margin-left: 1rem;
-    }
+  img {
+    height: 20px;
+    width: 20px;
+  }
+
+  span {
+    color: var(--text-title);
+    display: inline-block;
+    font-size: 1rem;
+    margin-left: 1rem;
   }
 `;
