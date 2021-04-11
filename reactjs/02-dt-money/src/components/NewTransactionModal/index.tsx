@@ -18,27 +18,23 @@ export function NewTransactionModal({ isOpen, onRequestClose }: NewTransactionMo
   const [category, setCategory] = useState('');
   const [type, setType] = useState('income');
 
-  const { loadTransactions } = useContext(TransactionsContext);
+  const { createNewTransaction } = useContext(TransactionsContext);
 
   async function handleCreateNewTransaction(e: FormEvent) {
     e.preventDefault();
 
-    const payload = {
+    await createNewTransaction({
       title,
       amount,
       category,
       type,
-      createdAt: new Date(),
-    };
+    });
 
-    await api.post('/transactions', payload);
-    loadTransactions();
     onRequestClose();
-
     setTitle('');
     setAmount(0);
     setCategory('');
-    setType('');
+    setType('income');
   }
 
   return (

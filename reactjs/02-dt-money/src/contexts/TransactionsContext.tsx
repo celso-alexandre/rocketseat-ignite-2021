@@ -12,20 +12,26 @@ interface ITransaction {
   createdAt: string,
 }
 
+type ICreateNewTransactionBody = Omit<ITransaction, 'id' | 'createdAt'>;
+
 interface IGetTransactionsResponse {
   transactions: ITransaction[];
 }
 
+interface IPostTransactionsResponse {
+  transaction: ITransaction;
+}
+
 interface IContextValue {
   transactions: ITransaction[];
-  loadTransactions: () => void;
+  createNewTransaction: (transaction: ICreateNewTransactionBody) => Promise<void>;
 }
 
 interface IProps {
   children: ReactNode;
 }
 
-export const TransactionsContext = createContext({} as IContextValue);
+export const TransactionsContext = createContext<IContextValue>({} as IContextValue);
 
 export function TransactionsProvider({ children }: IProps) {
   const [transactions, setTransactions] = useState([] as ITransaction[]);
@@ -33,6 +39,15 @@ export function TransactionsProvider({ children }: IProps) {
   async function loadTransactions() {
     const response = await api.get<IGetTransactionsResponse>('transactions');
     setTransactions(response.data.transactions);
+  }
+
+  async function createNewTransaction(newTransaction: ICreateNewTransactionBody) {
+    const newTransactionResponse = await api.post<IPostTransactionsResponse>('transactions', newTransaction);
+    setTransactions([
+      ...transactions,
+      newTransactionResponse.data.transaction,
+    ]);
+    // await loadTransactions();
   }
 
   useEffect(() => {
@@ -43,7 +58,7 @@ export function TransactionsProvider({ children }: IProps) {
     <TransactionsContext.Provider
       value={{
         transactions,
-        loadTransactions,
+        createNewTransaction,
       }}
     >
       {children}
