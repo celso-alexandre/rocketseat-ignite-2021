@@ -1,7 +1,7 @@
 import { useEffect, useState } from 'react';
-import axios from 'axios';
 import { format } from 'date-fns';
 import { Container } from './styles';
+import { api } from '../../services/api';
 
 interface ITransaction {
   id: number,
@@ -16,7 +16,7 @@ export function TransactionsTable() {
   const [transactions, setTransactions] = useState([] as ITransaction[]);
 
   useEffect(() => {
-    axios.get<ITransaction[]>('http://localhost:3000/api/transactions')
+    api.get<ITransaction[]>('transactions')
       .then((response) => setTransactions(response.data));
   }, []);
 
