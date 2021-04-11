@@ -1,5 +1,5 @@
 import {
-  createContext, ReactNode, useEffect, useState,
+  createContext, ReactNode, useContext, useEffect, useState,
 } from 'react';
 import { api } from '../services/api';
 
@@ -31,7 +31,7 @@ interface IProps {
   children: ReactNode;
 }
 
-export const TransactionsContext = createContext<IContextValue>({} as IContextValue);
+const TransactionsContext = createContext<IContextValue>({} as IContextValue);
 
 export function TransactionsProvider({ children }: IProps) {
   const [transactions, setTransactions] = useState([] as ITransaction[]);
@@ -64,4 +64,10 @@ export function TransactionsProvider({ children }: IProps) {
       {children}
     </TransactionsContext.Provider>
   );
+}
+
+export function useTransactions() {
+  const context = useContext(TransactionsContext);
+
+  return context;
 }
