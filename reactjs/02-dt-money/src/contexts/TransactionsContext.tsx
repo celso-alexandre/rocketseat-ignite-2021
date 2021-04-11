@@ -7,7 +7,7 @@ interface ITransaction {
   id: number,
   title: string,
   amount: number,
-  type: string,
+  type: 'income' | 'outcome',
   category: string,
   createdAt: string,
 }
