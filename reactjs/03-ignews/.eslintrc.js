@@ -33,6 +33,7 @@ module.exports = {
     '@typescript-eslint',
   ],
   rules: {
+    'arrow-body-style': 'off',
     'import/prefer-default-export': 'off',
     'react/self-closing-comp': 'off',
     'react/jsx-filename-extension': [1, { extensions: ['.tsx', '.jsx'] }],
