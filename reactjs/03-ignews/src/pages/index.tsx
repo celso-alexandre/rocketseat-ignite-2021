@@ -1,9 +1,13 @@
 import Head from 'next/head';
-import { GetServerSideProps } from 'next';
+import { GetStaticProps } from 'next';
 import styles from './index.module.scss';
 
 import { SubscribeButton } from '../components/SubscribeButton';
 import { stripe } from '../services/stripe';
+
+// Client-side (useEffect)
+// Server-side (getServerSideProps)
+// Static Site Generation (getStaticProps)
 
 interface HomeProps {
   product: {
@@ -42,7 +46,7 @@ export default function Home({ product }: HomeProps) {
               month
             </span>
           </p>
-          <SubscribeButton priceId={product.priceId} />
+          <SubscribeButton priceId={product?.priceId} />
         </section>
 
         <img src="/images/avatar.svg" alt="Girl coding" />
@@ -51,7 +55,8 @@ export default function Home({ product }: HomeProps) {
   );
 }
 
-export const getServerSideProps: GetServerSideProps = async () => {
+// export const getServerSideProps: GetServerSideProps = async () => { //Runs on NextJS node side whenever this page is loaded
+export const getStaticProps: GetStaticProps = async () => {
   const price = await stripe.prices.retrieve('price_1IimP7E1gAaT1kHClsfxQkdl');
 
   const product = {
@@ -67,5 +72,6 @@ export const getServerSideProps: GetServerSideProps = async () => {
     props: {
       product,
     },
+    revalidate: 60 * 60 * 24, // 24hrs
   };
 };
