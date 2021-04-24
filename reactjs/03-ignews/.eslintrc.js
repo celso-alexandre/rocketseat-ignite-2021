@@ -33,6 +33,7 @@ module.exports = {
     '@typescript-eslint',
   ],
   rules: {
+    camelcase: 'off',
     'max-len': 'off',
     'arrow-body-style': 'off',
     'import/prefer-default-export': 'off',

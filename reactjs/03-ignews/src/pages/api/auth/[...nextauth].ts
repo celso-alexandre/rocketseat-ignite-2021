@@ -13,6 +13,7 @@ export default NextAuth({
     }),
   ],
   callbacks: {
+    // eslint-disable-next-line no-unused-vars
     async signIn(user, account, profile) {
       const { email } = user;
 
