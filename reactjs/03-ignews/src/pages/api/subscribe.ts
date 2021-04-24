@@ -16,7 +16,7 @@ type User = {
 export default async (request: NextApiRequest, response: NextApiResponse) => {
   if (request.method !== 'POST') {
     response.setHeader('Allow', 'POST');
-    response.status(405).end('Mathod not allowed');
+    return response.status(405).end('Mathod not allowed');
   }
 
   const session = await getSession({ req: request });
