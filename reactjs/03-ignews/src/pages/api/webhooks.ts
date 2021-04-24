@@ -26,6 +26,9 @@ export const config = {
 
 const relevantEvents = new Set([
   'checkout.session.completed',
+  // 'customer.subscription.created',
+  'customer.subscription.updated',
+  'customer.subscription.deleted',
 ]);
 
 // eslint-disable-next-line consistent-return
@@ -52,11 +55,27 @@ export default async (request: NextApiRequest, response: NextApiResponse) => {
   if (relevantEvents.has(type)) {
     try {
       switch (type) {
-        case 'checkout.session.completed': {
+        // case 'customer.subscription.created':
+        case 'customer.subscription.updated':
+        case 'customer.subscription.deleted': {
+          const subscription = event.data.object as Stripe.Subscription;
+
+          console.log({ type });
+
+          await saveSubscription(
+            subscription.id.toString(),
+            subscription.customer.toString(),
+            // type === 'customer.subscription.created',
+            false,
+          );
+
+          break;
+        } case 'checkout.session.completed': {
           const checkoutSession = event.data.object as Stripe.Checkout.Session;
           await saveSubscription(
             checkoutSession.subscription.toString(),
             checkoutSession.customer.toString(),
+            true,
           );
           break;
         } default: {
@@ -64,6 +83,7 @@ export default async (request: NextApiRequest, response: NextApiResponse) => {
         }
       }
     } catch (err) {
+      console.log(err.stack);
       return response.json({ error: 'Webhook handler failed' });
     }
   }
