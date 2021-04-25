@@ -4,6 +4,7 @@ import { GetStaticProps } from 'next';
 import { RichText } from 'prismic-dom';
 import { format } from 'date-fns';
 import { ptBR } from 'date-fns/locale';
+import Link from 'next/link';
 import { getPrismicClient } from '../../services/prismic';
 import styles from './styles.module.scss';
 
@@ -26,13 +27,17 @@ export default function Posts({ posts }: IPostsProps) {
       </Head>
       <main className={styles.container}>
         <div className={styles.posts}>
+
           {posts?.map((post) => (
-            <a key={post.slug} href="/">
-              <time>{post.updatedAt}</time>
-              <strong>{post.title}</strong>
-              <p>{post.excerpt}</p>
-            </a>
+            <Link href={`/posts/${post.slug}`}>
+              <a key={post.slug}>
+                <time>{post.updatedAt}</time>
+                <strong>{post.title}</strong>
+                <p>{post.excerpt}</p>
+              </a>
+            </Link>
           ))}
+
         </div>
       </main>
     </>
