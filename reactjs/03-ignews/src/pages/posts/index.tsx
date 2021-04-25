@@ -6,7 +6,6 @@ import { format } from 'date-fns';
 import { ptBR } from 'date-fns/locale';
 import Link from 'next/link';
 import { useSession } from 'next-auth/client';
-import { useRouter } from 'next/router';
 import { getPrismicClient } from '../../services/prismic';
 import styles from './styles.module.scss';
 

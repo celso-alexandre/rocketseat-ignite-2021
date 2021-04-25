@@ -1,4 +1,4 @@
-import { GetStaticProps } from 'next';
+import { GetStaticPaths, GetStaticProps } from 'next';
 import { RichText } from 'prismic-dom';
 import { ptBR } from 'date-fns/locale';
 import { format } from 'date-fns';
@@ -59,10 +59,12 @@ export default function PostPreview({ post }: IPostPreviewProps) {
   );
 }
 
-export const getStaticPaths = () => {
+// this method is only available when filename uses parameter ([slug], in this case)
+export const getStaticPaths: GetStaticPaths = async () => {
   return {
     paths: [],
     fallback: 'blocking',
+    // true: loads on client-side. Bad for SEO, false: 404 for non-specified paths, blocking: loads via SSR
   };
 };
 
@@ -84,5 +86,6 @@ export const getStaticProps: GetStaticProps = async ({ params }) => {
     props: {
       post,
     },
+    revalidade: 60 * 30, // 30 minutes
   };
 };
