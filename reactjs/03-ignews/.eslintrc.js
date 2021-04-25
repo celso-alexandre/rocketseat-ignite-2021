@@ -33,6 +33,7 @@ module.exports = {
     '@typescript-eslint',
   ],
   rules: {
+    'jsx-a11y/anchor-is-valid': 'off',
     camelcase: 'off',
     'max-len': 'off',
     'arrow-body-style': 'off',
