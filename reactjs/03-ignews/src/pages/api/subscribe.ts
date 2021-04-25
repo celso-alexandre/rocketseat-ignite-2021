@@ -30,7 +30,7 @@ export default async (request: NextApiRequest, response: NextApiResponse) => {
     ),
   );
 
-  let stripeCustomerId = user.data.stripe_customer_id;
+  let stripeCustomerId = user?.data.stripe_customer_id;
 
   if (!stripeCustomerId) {
     const stripeCustomer = await stripe.customers.create({

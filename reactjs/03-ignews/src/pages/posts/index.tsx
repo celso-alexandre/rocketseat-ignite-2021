@@ -5,6 +5,8 @@ import { RichText } from 'prismic-dom';
 import { format } from 'date-fns';
 import { ptBR } from 'date-fns/locale';
 import Link from 'next/link';
+import { useSession } from 'next-auth/client';
+import { useRouter } from 'next/router';
 import { getPrismicClient } from '../../services/prismic';
 import styles from './styles.module.scss';
 
@@ -20,6 +22,8 @@ interface IPostsProps {
 }
 
 export default function Posts({ posts }: IPostsProps) {
+  const [session] = useSession();
+
   return (
     <>
       <Head>
@@ -29,8 +33,13 @@ export default function Posts({ posts }: IPostsProps) {
         <div className={styles.posts}>
 
           {posts?.map((post) => (
-            <Link href={`/posts/${post.slug}`}>
-              <a key={post.slug}>
+            <Link
+              key={post.slug}
+              href={`/posts/${
+                session?.activeSubscription ? '' : 'preview/'
+              }${post.slug}`}
+            >
+              <a>
                 <time>{post.updatedAt}</time>
                 <strong>{post.title}</strong>
                 <p>{post.excerpt}</p>
@@ -54,12 +63,12 @@ export const getStaticProps: GetStaticProps = async () => {
     pageSize: 100,
   });
 
-  const posts = response.results.map((post) => {
+  const posts = response?.results?.map((post) => {
     return {
       slug: post.uid,
-      title: RichText.asText(post.data.title),
-      excerpt: (post.data.content.find((content) => content.type === 'paragraph')?.text ?? '') as string,
-      updatedAt: format(new Date(post.last_publication_date), "dd 'de' MMMM 'de' yyyy", { locale: ptBR }),
+      title: RichText.asText(post?.data.title),
+      excerpt: (post?.data.content.find((content) => content.type === 'paragraph')?.text ?? '') as string,
+      updatedAt: format(new Date(post?.last_publication_date), "dd 'de' MMMM 'de' yyyy", { locale: ptBR }),
     };
   });
 
