@@ -1,5 +1,9 @@
+import { Flex } from '@chakra-ui/react';
+
 export default function Home() {
   return (
-    <h1>Dashgo</h1>
+    <Flex>
+      <h1>Hello</h1>
+    </Flex>
   );
 }
