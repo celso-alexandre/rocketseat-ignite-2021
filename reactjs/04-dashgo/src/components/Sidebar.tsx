@@ -16,7 +16,7 @@ export function Sidebar() {
           <Text
             fontWeight="bold"
             color="gray.400"
-            fontsize="small"
+            fontSize="small"
           >
             Geral
           </Text>
@@ -40,7 +40,7 @@ export function Sidebar() {
           <Text
             fontWeight="bold"
             color="gray.400"
-            fontsize="small"
+            fontSize="small"
           >
             Automação
           </Text>

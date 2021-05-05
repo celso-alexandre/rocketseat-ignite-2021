@@ -18,7 +18,6 @@ export function Header() {
       <Text
         fontSize="2xl"
         fontWeight="bold"
-        letterSpacings="tight"
         w="64"
       >
         dashgo
@@ -58,7 +57,7 @@ export function Header() {
           pr="8"
           py="1"
           color="gray.300"
-          borderrightWith={1}
+          borderRight={1}
           borderColor="gray.700"
         >
           <Icon as={RiNotificationLine} fontSize="auto" />
